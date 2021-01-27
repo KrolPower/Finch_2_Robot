@@ -1,0 +1,110 @@
+
+# Author: Chris Osborne
+# Date: 01/14/2021
+# Description: This program is an interpretation of how a robot might communicate.
+# Instructions: To operate: Connect the robot via the bluetooth dongle, open .py file, and run code.
+#                   Start shaking robot and continue to shake while starting the code. The robot will set off an alarm
+#                   and flashing lights in an attempt to communicate that it does not like that. Now put the robot down.
+#                   The robot will communicate that it is happy by playing a few notes to the song "Crazy Train" by
+#                   Ozzy Osbourn and dance in circles while flashing lights.
+
+from time import sleep
+from BirdBrain import Finch
+
+bot = Finch()
+
+#Declares note frequencies to variables
+A = 44
+B = 46
+C = 48
+D = 50
+E = 52
+F = 54
+
+a = 56
+b = 58
+c = 60
+d = 62
+e = 64
+f = 52
+g = 68
+
+# #If the bot is being shaken, will beep and flash until set down.
+while bot.isShaking() == True:
+
+    bot.setBeak(100,0,0)  # set the led to red
+    bot.playNote(100, 8)
+    sleep(1)
+
+    bot.setBeak(0,0,100)  # set the led to blue
+    bot.playNote(135, 8)
+    sleep(1)
+
+# #Plays song notes once shaking has stopped
+sleep(2)
+bot.playNote(f, .2)
+sleep(.2)
+bot.playNote(f, .2)
+sleep(1)
+bot.playNote(a, .2)
+sleep(.2)
+bot.playNote(a, .2)
+sleep(1)
+bot.playNote(E, .2)
+sleep(.2)
+bot.playNote(E, .2)
+sleep(1)
+bot.playNote(f, .2)
+sleep(.2)
+bot.playNote(f, .2)
+sleep(1)
+bot.playNote(c, .2)
+sleep(.2)
+bot.playNote(f, .2)
+sleep(.2)
+bot.playNote(d, .2)
+sleep(.2)
+bot.playNote(f, .2)
+sleep(.2)
+bot.playNote(c, .2)
+sleep(.2)
+bot.playNote(f, .2)
+sleep(.2)
+bot.playNote(b, .2)
+sleep(.2)
+bot.playNote(a, .2)
+sleep(.2)
+bot.playNote(g, .2)
+sleep(.2)
+bot.playNote(a, .2)
+sleep(.2)
+
+#basic function to call for the dance when bot is put down
+def happytimes(cycle):
+    """Performs dance cycle"""
+    i = 0
+    while i <= cycle:
+        bot.setBeak(0, 100, 0)
+        bot.setMotors(100, -100)
+        sleep(.25)
+
+        bot.setBeak(0, 0, 0)
+        bot.setMotors(100, 100)
+        sleep(.25)
+
+        bot.setBeak(100, 0, 100)
+        bot.setMotors(-100, 100)
+        sleep(.25)
+
+        bot.setBeak(0, 0, 0)
+        bot.setMotors(-100, -100)
+        sleep(.25)
+
+        i += 1
+
+#calls the dance
+cycle = 6
+happytimes(cycle)
+
+#Ends bot program
+bot.stopAll()
